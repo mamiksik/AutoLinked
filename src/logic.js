@@ -113,6 +113,9 @@ const saveCurrentDay = () => {
 }
 
 const iterSearchPage = async () => {
+    // Make sure all elements are rendered
+    window.scrollTo(0, document.body.scrollHeight);
+
     let connectionCount = 0;
     const profiles = document.querySelectorAll(querySelectors.jobPage.profileCard);
     for (const profile of profiles) {
@@ -139,8 +142,6 @@ const iterSearchPage = async () => {
     console.log("🏃 Going to next job page!");
     // Await the page load
     await delay(settings.pageLoadCooldown);
-
-
     return connectionCount;
 }
 
