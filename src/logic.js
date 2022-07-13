@@ -131,7 +131,12 @@ const iterSearchPage = async () => {
         connectionCount++;
     }
 
-    document.querySelector(querySelectors.jobPage.nextPage).click();
+    const nextButton = await document.querySelector(querySelectors.jobPage.nextPage);
+    if (nextButton !== null) {
+        console.log("🏃 Going to next job page!")
+        nextButton.click();
+    }
+
     return connectionCount;
 }
 
