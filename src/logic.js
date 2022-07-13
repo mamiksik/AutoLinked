@@ -45,7 +45,7 @@ const getCustomMessage = (name) => {
  * Initialize day cycle.
  * Day cycle performs periodically connection sprees.
  */
-const invitationCron = async (forQuery) => {
+const invitationCron = async () => {
     const connectionToday = GM_getValue('conn_day', 0);
     console.log('⏰ Running invitation cron');
     console.log('📈 Invited today: ', connectionToday);
@@ -130,10 +130,9 @@ const iterSearchPage = async () => {
     let tryCount = 1;
     let nextButton = null;
     while (nextButton === null && tryCount <= 3) {
-        nextButton = await querySelector(document, querySelectors.jobPage.nextPage)
+        console.log(`Next button not found, retrying in 100ms... Try ${tryCount}/4`);
+        nextButton = await querySelector(document, querySelectors.jobPage.nextPage);
         tryCount++;
-
-        console.log(`Next button not found, retrying in 100ms... Try ${tryCount}/4`)
         await delay(100);
     }
 
@@ -142,11 +141,13 @@ const iterSearchPage = async () => {
         throw Error("Next button is missing, error out to prevent infinite loop");
     }
 
+    console.log(nextButton);
     nextButton.click();
     console.log("🏃 Going to next job page!");
+
     // Await the page load
     await delay(settings.pageLoadCooldown);
-    console.log("🧍 Arrived at next page:)")
+    console.log("🧍 Arrived at next page:)");
     return connectionCount;
 }
 
