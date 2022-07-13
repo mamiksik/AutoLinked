@@ -146,6 +146,7 @@ const iterSearchPage = async () => {
     console.log("🏃 Going to next job page!");
     // Await the page load
     await delay(settings.pageLoadCooldown);
+    console.log("🧍 Arrived at next page:)")
     return connectionCount;
 }
 
