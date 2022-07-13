@@ -66,14 +66,15 @@ function connect() {
     let url = location.pathname.split('/');
 
     // TODO: Check indexes
-    if (url[1] === 'mynetwork' && url.length === 1) {
+    // if (url[1] === 'mynetwork' && url.length === 1) {
+    //     return invitationCron();
+    // } else if (url[2].toLowerCase() === 'invite-connect') {
+    //     console.log('🚧 This is unimplemented feature');
+    //     // return clickThroughProfiles();
+    //     return;
+    // } else
+    if (url.length >= 2 && url[1] === 'search' && url[2] === 'results') {
         return invitationCron();
-    } else if (url[2].toLowerCase() === 'invite-connect') {
-        console.log('🚧 This is unimplemented feature');
-        // return clickThroughProfiles();
-        return;
-    } else if (url[1] === 'search' && url[2] === 'results') {
-        return iterSearchPage();
     }
 
     const popup = document.getElementById('popup').parentNode;
