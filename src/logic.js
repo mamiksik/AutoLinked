@@ -117,19 +117,19 @@ const iterSearchPage = async () => {
     const profiles = document.querySelectorAll(querySelectors.jobPage.profileCard);
 
 
-    for (const profile of profiles) {
-        const name = profile.textContent.match(settings.jobPage.namePattern);
-        const message = "";
-
-        // Open "send invitation" dialog
-        const connectButton = profile.querySelector(querySelectors.jobPage.connectButton);
-        if (connectButton === null) continue;
-        connectButton.click();
-
-        const result = await connectToUser(name, message);
-        if (result !== null) logConnection(result);
-        connectionCount++;
-    }
+    // for (const profile of profiles) {
+    //     const name = profile.textContent.match(settings.jobPage.namePattern);
+    //     const message = "";
+    //
+    //     // Open "send invitation" dialog
+    //     const connectButton = profile.querySelector(querySelectors.jobPage.connectButton);
+    //     if (connectButton === null) continue;
+    //     connectButton.click();
+    //
+    //     const result = await connectToUser(name, message);
+    //     if (result !== null) logConnection(result);
+    //     connectionCount++;
+    // }
 
     const nextButton = await document.querySelector(querySelectors.jobPage.nextPage);
     if (nextButton !== null) {
@@ -157,7 +157,6 @@ const connectToUser = async (name, message) => {
     // Send the invite
     // const sendInviteButton = querySelector(invitationDialog, querySelectors.invitationModel.sendInviteButton);
     const sendInviteButton = await querySelector(document, 'button[aria-label="Dismiss"]');
-    console.log(sendInviteButton);
     if (sendInviteButton === null) return;
 
     await delay(getRandomInt(settings.delayBetweenConnections));
