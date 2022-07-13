@@ -55,7 +55,7 @@ const invitationCron = async () => {
         initNewDay();
     }
 
-    // let batchConnectionCount = 0;
+    let batchConnectionCount = 0;
     // const batchLimit = getRandomInt(settings.limitPerBatch);
     // while (batchConnectionCount <= batchLimit) {
     batchConnectionCount += await iterSearchPage();
