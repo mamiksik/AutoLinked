@@ -147,7 +147,6 @@ const saveDataToCsv = (data, fileSuffix='connection-log') => {
 }
 
 const querySelector = async (element, query) => {
-    console.log(element);
     await delay(getRandomInt(5, 10));
     return element.querySelector(query);
 }
