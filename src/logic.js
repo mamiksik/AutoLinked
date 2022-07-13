@@ -135,20 +135,21 @@ const iterSearchPage = async () => {
     return connectionCount;
 }
 
-
 const connectToUser = async (name, message) => {
-    const invitationDialog = document.querySelector(querySelectors.invitationModel.self);
+    const invitationDialog = await querySelector(document, querySelectors.invitationModel.self);
 
     // Open custom message sub dialog
-    const addCustomMessageButton = invitationDialog.querySelector(querySelectors.invitationModel.addCustomMessageButton);
+    const addCustomMessageButton = await querySelector(invitationDialog, querySelectors.invitationModel.addCustomMessageButton);
     if (addCustomMessageButton === null) return;
     addCustomMessageButton.click();
 
-    const customMessageTextBox = invitationDialog.querySelector(querySelectors.invitationModel.messageTextfield);
+    const customMessageTextBox = await querySelector(invitationDialog, querySelectors.invitationModel.messageTextfield);
     customMessageTextBox.value = message;
 
     // Send the invite
-    const sendInviteButton = invitationDialog.querySelector(querySelectors.invitationModel.sendInviteButton);
+    // const sendInviteButton = querySelector(invitationDialog, querySelectors.invitationModel.sendInviteButton);
+    const sendInviteButton = await querySelector(invitationDialog, 'button[aria-label="Dismiss"]');
+    console.log(sendInviteButton);
     if (sendInviteButton === null) return;
 
     await delay(getRandomInt(settings.delayBetweenConnections));
@@ -158,4 +159,5 @@ const connectToUser = async (name, message) => {
     return [
         name
     ];
+}
 }

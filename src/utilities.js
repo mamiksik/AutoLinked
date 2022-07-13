@@ -27,11 +27,6 @@ function downloadString(text, fileType, fileName) {
     }, 1500);
 }
 
-function capitalize(s) {
-    if (typeof s !== 'string') return '';
-    return s.charAt(0).toUpperCase() + s.slice(1)
-}
-
 function getRandomInt(minMax, max = null) {
     let min = 0;
     if (max === null) {
@@ -42,33 +37,6 @@ function getRandomInt(minMax, max = null) {
     }
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-
-function clickAnimation() {
-    let btn = document.getElementById('connectBtn');
-    btn.style.background = 'gray';
-    btn.style.color = 'white';
-    // flashes color on click
-    setTimeout(function () {
-        btn.style.background = 'white';
-        btn.style.color = 'blue';
-    }, 300);
-}
-
-function generateRegexps() {
-    let include_str = "";
-    for (let [key, value] of Object.entries(settings.myNetwork.includePattern)) {
-        include_str += value + "|";
-    }
-    let exclude_str = "";
-    for (let [key, value] of Object.entries(settings.myNetwork.excludePattern)) {
-        exclude_str += value + "|";
-    }
-
-    const includePattern = new RegExp(include_str.slice(0, -1), "i");
-    const excludePattern = new RegExp(exclude_str.slice(0, -1), "i");
-    return {includePattern, excludePattern};
 }
 
 function getTodayDate() {
@@ -129,29 +97,6 @@ function dateToString(date) {
     return mm + '_' + dd + '_' + yyyy;
 }
 
-function gotoCls(cls, delay) {
-    setTimeout(() => {
-        let btn = document.getElementsByClassName(cls)[0];
-        btn.click();
-    }, delay);
-}
-
-function gotoId(id, delay) {
-    setTimeout(() => {
-        let btn = document.getElementById(id);
-        btn.click();
-    }, delay);
-}
-
-function gotoElementByText(text, delay, tag = 'a') {
-    setTimeout(() => {
-        getElementsByText(text, tag)[0].click();
-    }, delay);
-}
-
-function getElementsByText(str, tag = 'a') {
-    return Array.prototype.slice.call(document.getElementsByTagName(tag)).filter(el => el.textContent.includes(str.trim()));
-}
 
 const delay = async (ms) => new Promise(res => setTimeout(res, ms));
 
@@ -199,4 +144,10 @@ const saveDataToCsv = (data, fileSuffix='connection-log') => {
         URL.revokeObjectURL(downloadLink.href);
         document.body.removeChild(downloadLink);
     }, 500);
+}
+
+const querySelector = async (element, query) => {
+    console.log(element);
+    await delay(getRandomInt(5, 10));
+    return element.querySelector(query);
 }

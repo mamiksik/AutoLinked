@@ -5,11 +5,11 @@
 // @author           Ronald Luc
 // @license          None for now
 // @include          https://www.linkedin.com/*
-// @version          2.0
+// @version          2.1
 // @match            https://www.linkedin.com/*
-// @require          https://raw.githubusercontent.com/ronaldluc/AutoLinked/master/src/main.js
-// @require          https://raw.githubusercontent.com/ronaldluc/AutoLinked/master/src/utilities.js
-// @require          https://raw.githubusercontent.com/ronaldluc/AutoLinked/master/src/logic.js
+// @require          https://raw.githubusercontent.com/mamiksik/AutoLinked/master/src/main.js
+// @require          https://raw.githubusercontent.com/mamiksik/AutoLinked/master/src/utilities.js
+// @require          https://raw.githubusercontent.com/mamiksik/AutoLinked/master/src/logic.js
 
 // @noframes
 // @grant GM_setValue
@@ -38,9 +38,6 @@ const settings = {
         namePattern: /([^,.\- ]+) [^,.\- ]+(,.+)? 2nd degree connection 2nd/i,
         employerPattern: /machine[a-z ]*learning .* at (\w+)/i
     },
-//     'pruning': {
-//         'old_patt': '\\d+ (week|month|year)',   // RegExp invitations to be withdrawn (proceeds once per day)
-//     },
 };
 
 
