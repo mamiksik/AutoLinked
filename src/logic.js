@@ -83,13 +83,6 @@ const invitationCron = async (forQuery) => {
 const initNewDay = () => {
     console.log('🌞 Initializing new day (last_day=', Number(GM_getValue('day', 0)), ', current_day=', Number(getTodayDate()), ')');
 
-    // TODO Fix
-    // setTimeout(() => {
-    //     pruneInvitations(settings, () => {
-    //         gotoElementByText('My Network', 0, 'span')
-    //     });
-    // }, Math.floor(settings['spree_delay'][0] / 2));
-
     GM_setValue('conn_day', 0);
     GM_setValue('conn_day_max', getRandomInt(settings.limitPerDay));
     GM_setValue('invitation_logs', []);
@@ -134,10 +127,19 @@ const iterSearchPage = async () => {
         connectionCount++;
     }
 
-    const nextButton = await querySelector(document, querySelectors.jobPage.nextPage);
+    let tryCount = 1;
+    let nextButton = null;
+    while (nextButton === null && tryCount <= 3) {
+        nextButton = await querySelector(document, querySelectors.jobPage.nextPage)
+        tryCount++;
+
+        console.log(`Next button not found, retrying in 100ms... Try ${tryCount}/4`)
+        await delay(100);
+    }
+
     if (nextButton === null) {
         console.log(nextButton);
-        throw Error("Next button is massing, error out to prevent infinite loop");
+        throw Error("Next button is missing, error out to prevent infinite loop");
     }
 
     nextButton.click();
