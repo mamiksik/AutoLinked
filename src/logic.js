@@ -156,7 +156,7 @@ const connectToUser = async (name, message) => {
 
     // Send the invite
     // const sendInviteButton = querySelector(invitationDialog, querySelectors.invitationModel.sendInviteButton);
-    const sendInviteButton = await querySelector(invitationDialog, 'button[aria-label="Dismiss"]');
+    const sendInviteButton = await querySelector(document, 'button[aria-label="Dismiss"]');
     console.log(sendInviteButton);
     if (sendInviteButton === null) return;
 
