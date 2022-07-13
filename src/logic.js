@@ -115,30 +115,28 @@ const saveCurrentDay = () => {
 const iterSearchPage = async () => {
     let connectionCount = 0;
     const profiles = document.querySelectorAll(querySelectors.jobPage.profileCard);
+    for (const profile of profiles) {
+        const name = profile.textContent.match(settings.jobPage.namePattern);
+        const message = "";
 
+        // Open "send invitation" dialog
+        const connectButton = profile.querySelector(querySelectors.jobPage.connectButton);
+        if (connectButton === null) continue;
+        connectButton.click();
 
-    // for (const profile of profiles) {
-    //     const name = profile.textContent.match(settings.jobPage.namePattern);
-    //     const message = "";
-    //
-    //     // Open "send invitation" dialog
-    //     const connectButton = profile.querySelector(querySelectors.jobPage.connectButton);
-    //     if (connectButton === null) continue;
-    //     connectButton.click();
-    //
-    //     const result = await connectToUser(name, message);
-    //     if (result !== null) logConnection(result);
-    //     connectionCount++;
-    // }
+        const result = await connectToUser(name, message);
+        if (result !== null) logConnection(result);
+        connectionCount++;
+    }
 
     const nextButton = await document.querySelector(querySelectors.jobPage.nextPage);
-    if (nextButton !== null) {
-        console.log("🏃 Going to next job page!");
-        nextButton.click();
+    if (nextButton === null) throw Error("Next button is massing, error out to prevent infinite loop")
 
-        // Await the page load
-        await delay(settings.pageLoadCooldown);
-    }
+    nextButton.click();
+    console.log("🏃 Going to next job page!");
+    // Await the page load
+    await delay(settings.pageLoadCooldown);
+
 
     return connectionCount;
 }
