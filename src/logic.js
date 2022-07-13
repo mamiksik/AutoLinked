@@ -117,7 +117,9 @@ const iterSearchPage = async () => {
     window.scrollTo(0, document.body.scrollHeight);
 
     let connectionCount = 0;
+    await delay(getRandomInt(10, 20));
     const profiles = document.querySelectorAll(querySelectors.jobPage.profileCard);
+
     for (const profile of profiles) {
         const name = profile.textContent.match(settings.jobPage.namePattern);
         const message = "";
@@ -132,7 +134,7 @@ const iterSearchPage = async () => {
         connectionCount++;
     }
 
-    const nextButton = await document.querySelector(querySelectors.jobPage.nextPage);
+    const nextButton = await querySelector(document, querySelectors.jobPage.nextPage);
     if (nextButton === null) {
         console.log(nextButton);
         throw Error("Next button is massing, error out to prevent infinite loop");
