@@ -160,4 +160,3 @@ const connectToUser = async (name, message) => {
         name
     ];
 }
-}
