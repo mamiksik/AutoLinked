@@ -57,7 +57,7 @@ const invitationCron = async (forQuery) => {
 
     let batchConnectionCount = 0;
     const batchLimit = getRandomInt(settings.limitPerBatch);
-    while (batchConnectionCount < batchLimit) {
+    while (batchConnectionCount <= batchLimit) {
         batchConnectionCount += await iterSearchPage();
     }
 
@@ -137,7 +137,7 @@ const iterSearchPage = async () => {
         nextButton.click();
 
         // Await the page load
-        await delay(getRandomInt(100, 200));
+        await delay(settings.pageLoadCooldown);
     }
 
     return connectionCount;
