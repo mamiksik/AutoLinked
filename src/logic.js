@@ -55,11 +55,11 @@ const invitationCron = async () => {
         initNewDay();
     }
 
-    let batchConnectionCount = 0;
-    const batchLimit = getRandomInt(settings.limitPerBatch);
-    while (batchConnectionCount <= batchLimit) {
-        batchConnectionCount += await iterSearchPage();
-    }
+    // let batchConnectionCount = 0;
+    // const batchLimit = getRandomInt(settings.limitPerBatch);
+    // while (batchConnectionCount <= batchLimit) {
+    batchConnectionCount += await iterSearchPage();
+    // }
 
     GM_setValue('conn_day', connectionToday + batchConnectionCount);
     if (GM_getValue('conn_day', 0) >= GM_getValue('conn_day_max', 9999)) {
@@ -130,7 +130,7 @@ const iterSearchPage = async () => {
     let tryCount = 1;
     let nextButton = null;
     while (nextButton === null && tryCount <= 3) {
-        console.log(`Next button not found, retrying in 100ms... Try ${tryCount}/4`);
+        console.log(`Searching for next button. Try ${tryCount}/4`);
         nextButton = await querySelector(document, querySelectors.jobPage.nextPage);
         tryCount++;
         await delay(100);
