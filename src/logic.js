@@ -130,7 +130,10 @@ const iterSearchPage = async () => {
     }
 
     const nextButton = await document.querySelector(querySelectors.jobPage.nextPage);
-    if (nextButton === null) throw Error("Next button is massing, error out to prevent infinite loop")
+    if (nextButton === null) {
+        console.log(nextButton);
+        throw Error("Next button is massing, error out to prevent infinite loop");
+    }
 
     nextButton.click();
     console.log("🏃 Going to next job page!");
