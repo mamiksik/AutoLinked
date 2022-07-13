@@ -5,8 +5,8 @@
 // @description  try to take over the world!
 // @author       You
 // @match        https://*/*
-// @require      https://raw.githubusercontent.com/ronaldluc/AutoLinked/master/src/main.js
-// @require      https://raw.githubusercontent.com/ronaldluc/AutoLinked/master/src/utilities.js
+// @require      https://raw.githubusercontent.com/mamiksik/AutoLinked/master/src/main.js
+// @require      https://raw.githubusercontent.com/mamiksik/AutoLinked/master/src/utilities.js
 
 // @noframes
 // @grant GM_setValue
