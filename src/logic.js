@@ -133,8 +133,11 @@ const iterSearchPage = async () => {
 
     const nextButton = await document.querySelector(querySelectors.jobPage.nextPage);
     if (nextButton !== null) {
-        console.log("🏃 Going to next job page!")
+        console.log("🏃 Going to next job page!");
         nextButton.click();
+
+        // Await the page load
+        await delay(getRandomInt(100, 200));
     }
 
     return connectionCount;
