@@ -2,10 +2,10 @@
 // @name             AutoLinked
 // @description      One-click add matched LinkedIn "Recommended for you" people in the My Network page
 // @namespace        ronald.luc
-// @author           Ronald Luc
+// @author           Ronald Luc,Martin Miksik
 // @license          None for now
 // @include          https://www.linkedin.com/*
-// @version          2.1
+// @version          2.2
 // @match            https://www.linkedin.com/*
 // @require          https://raw.githubusercontent.com/mamiksik/AutoLinked/master/src/main.js
 // @require          https://raw.githubusercontent.com/mamiksik/AutoLinked/master/src/utilities.js
