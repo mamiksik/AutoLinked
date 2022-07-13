@@ -26,7 +26,7 @@ const settings = {
     limitPerBatch: [30, 36],                               // [from, to] range of  max people invited per spree
     limitPerDay: [250, 300],                               // [from, to] range of max people invited per day
     bathToDownload: 200,                                   // Once this limit is reached connections are exported to file
-    pageLoadCooldown: [1500, 1800],                            // [from, to] range of waiting for page load
+    pageLoadCooldown: [4500, 4800],                            // [from, to] range of waiting for page load
     myNetwork: {
         includePattern: {                                  // RegExps of peoples bio, to be connected to (keys are for clarity and ignored)
 
