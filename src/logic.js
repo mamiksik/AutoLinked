@@ -56,10 +56,10 @@ const invitationCron = async () => {
     }
 
     let batchConnectionCount = 0;
-    // const batchLimit = getRandomInt(settings.limitPerBatch);
-    // while (batchConnectionCount <= batchLimit) {
-    batchConnectionCount += await iterSearchPage();
-    // }
+    const batchLimit = getRandomInt(settings.limitPerBatch);
+    while (batchConnectionCount <= batchLimit) {
+        batchConnectionCount += await iterSearchPage();
+    }
 
     GM_setValue('conn_day', connectionToday + batchConnectionCount);
     if (GM_getValue('conn_day', 0) >= GM_getValue('conn_day_max', 9999)) {
