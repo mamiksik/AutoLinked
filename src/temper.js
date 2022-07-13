@@ -20,25 +20,52 @@ console.log("Base script loaded");
 
 // Feel free to overwrite `settings` with your own settings by starting from the `default_settings` above
 // Make sure to override whole key:value pairs (the whole values of the "top-level" keys get replaced
-settings = {
-    // 'click_delay': [2001, 5003],        // [from, to] range of delay between clicks in ms
-    // 'lim_per_spree': [30, 36],          // [from, to] range of  max people invited per spree
-    // 'spree_delay': [60 * 60 * 1000, 2 * 60 * 60 * 1000],    // [from, to] range of delay between click sprees in ms
-    // 'lim_per_day': [250, 300],          // [from, to] range of max people invited per day
-    'include_patts': {                 // RegExps of peoples bio, to be connected to (keys are for clarity and ignored)
-        // "perspective": "python|C\\+\\+",
-        "colleagues": "R&D|deep|machine learning| ML | NLP | CV |artificial| AI |data scientist|speech recog|computer vision|language processing", // innovat| BI |intelligence|data  -- too vague
-        // "research": "scientist|space", // science|professor|research
-        // "executive": "founder| C.{1,2}O |lead|owner|principal|partner|investor|angel|entrepreneur", // head of
-        "ml_leaders": "at google|nvidia|deepmind|openai",
+const settings = {
+    delayBetweenConnections: [2001, 5003],                 // [from, to] range of delay between connection requests in ms
+    batchDelay: [60 * 60 * 1000, 2 * 60 * 60 * 1000],      // [from, to] range of delay between connection sprees in ms
+    limitPerBatch: [30, 36],                               // [from, to] range of  max people invited per spree
+    limitPerDay: [250, 300],                               // [from, to] range of max people invited per day
+    bathToDownload: 200,                                   // Once this limit is reached connections are exported to file
+    myNetwork: {
+        includePattern: {                                  // RegExps of peoples bio, to be connected to (keys are for clarity and ignored)
+
+        },
+        excludePattern: {                                  // RegExps of peoples bio, to be always excluded from connecting to (keys are for clarity and ignored)
+
+        },
     },
-    'exclude_patts': {                  // RegExps of peoples bio, to be always excluded from connecting to (keys are for clarity and ignored)
-        "technologies": "electro|web|mobile|java|script|PHP|frontend|front-end|design| QA | UI | UX ",
-        "HR": "headhunt|talent|trainer|sourcing|people| HR |recruit",
-        "other": "ARTIN",
+    jobPage: {
+        namePattern: /([^,.\- ]+) [^,.\- ]+(,.+)? 2nd degree connection 2nd/i,
+        employerPattern: /machine[a-z ]*learning .* at (\w+)/i
     },
-    // 'pruning': {
-    //     'old_patt': '\\d+ (week|month|year)',   // RegExp invitations to be withdrawn (proceeds once per day)
-    // },
+//     'pruning': {
+//         'old_patt': '\\d+ (week|month|year)',   // RegExp invitations to be withdrawn (proceeds once per day)
+//     },
 };
 
+
+
+// const iterMyNetworkPage = async () => {
+//     // Make one connection
+//     const {includePattern, excludePattern} = generateRegexps();
+//     const profileToConnect = Array.from(
+//         document.querySelectorAll(querySelectors.myNetwork.profileCard)
+//     ).find(profile => {
+//         const rawContent = profile.textContent;
+//         const [include, exclude] = [rawContent.match(includePattern), rawContent.match(excludePattern)];
+//         const connectButton = profile.querySelector(querySelectors.myNetwork.connectButton);
+//         return (include !== null && exclude === null && connectButton !== null);
+//     });
+//
+//     if (profileToConnect !== null) {
+//         // Open the connection dialog
+//         profileToConnect.querySelector(querySelectors.myNetwork.connectButton).click();
+//
+//         //TODO: Wait for delayBetweenConnections
+//         const result = await connectToUser('', '');
+//         if (result !== null) logConnection(result);
+//         return 1;
+//     }
+//
+//     return 0;
+// }

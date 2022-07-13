@@ -55,19 +55,20 @@ function clickAnimation() {
         btn.style.color = 'blue';
     }, 300);
 }
-function generateRegexps(settings) {
+
+function generateRegexps() {
     let include_str = "";
-    for (let [key, value] of Object.entries(settings['include_patts'])) {
+    for (let [key, value] of Object.entries(settings.myNetwork.includePattern)) {
         include_str += value + "|";
     }
     let exclude_str = "";
-    for (let [key, value] of Object.entries(settings['exclude_patts'])) {
+    for (let [key, value] of Object.entries(settings.myNetwork.excludePattern)) {
         exclude_str += value + "|";
     }
 
-    const include_patt = new RegExp(include_str.slice(0, -1), "i");
-    const exclude_patt = new RegExp(exclude_str.slice(0, -1), "i");
-    return {include_patt, exclude_patt};
+    const includePattern = new RegExp(include_str.slice(0, -1), "i");
+    const excludePattern = new RegExp(exclude_str.slice(0, -1), "i");
+    return {includePattern, excludePattern};
 }
 
 function getTodayDate() {
@@ -150,4 +151,52 @@ function gotoElementByText(text, delay, tag = 'a') {
 
 function getElementsByText(str, tag = 'a') {
     return Array.prototype.slice.call(document.getElementsByTagName(tag)).filter(el => el.textContent.includes(str.trim()));
+}
+
+const delay = async (ms) => new Promise(res => setTimeout(res, ms));
+
+const logConnection = (connection) => {
+    let log = GM_getValue('invitation_logs', []);
+    log.push(connection);
+
+    if (log.size >= settings.bathToDownload) {
+        saveDataToCsv(log);
+        log = [];
+    }
+
+    GM_setValue(log);
+}
+
+const saveDataToCsv = (data, fileSuffix='connection-log') => {
+    const date = (
+        new Date(GM_getValue('day', 0))
+        .toISOString()
+        .slice(0,10)
+    );
+
+    const time = (
+        new Date(GM_getValue('day', 0))
+        .toISOString()
+        .slice(11, 19)
+    )
+
+    const filename = `f${date}-${time}-${fileSuffix}.csv`
+    let blob = new Blob(data, {type: 'csv'});
+
+    // Prepare the download link
+    const downloadLink = document.createElement('a');
+    downloadLink.download = filename;
+    downloadLink.href = URL.createObjectURL(blob);
+    downloadLink.dataset.downloadurl = [fileType, a.download, a.href].join(',');
+    downloadLink.style.display = 'none'
+
+    // Download the file
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+
+    // Final clean up
+    setTimeout(() => {
+        URL.revokeObjectURL(downloadLink.href);
+        document.body.removeChild(downloadLink);
+    }, 500);
 }
