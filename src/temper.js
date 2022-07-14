@@ -36,8 +36,7 @@ const settings = {
         },
     },
     jobPage: {
-        namePattern: /([^,.\- ]+) [^,.\- ]+(,.+)? 2nd degree connection 2nd/i,
-        employerPattern: /machine[a-z ]*learning .* at (\w+)/i
+        namePattern: /^([\w\-]+)/i,
     },
     messages: {
         search: (firstName) => `Hi, ${firstName}`,

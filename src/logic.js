@@ -62,7 +62,7 @@ const invitationCron = async () => {
             batchConnectionCount += await iterSearchPage();
         } catch (e) {
             console.log(e);
-            console.log("Eroring out");
+            console.log("⛔ Error out, try next time");
             break;
         }
     }
@@ -122,13 +122,15 @@ const iterSearchPage = async () => {
     for (const profile of profiles) {
         // Open "send invitation" dialog
         const connectButton = profile.querySelector(querySelectors.jobPage.connectButton);
+
+        // Some people might not be invitable (only follow)
         if (connectButton === null) continue;
         connectButton.click();
 
         const firstName = (profile
             .querySelector(querySelectors.jobPage.firstName)
             .textContent
-            .match(querySelectors.jobPage.profileCard)
+            .match(querySelectors.jobPage.namePattern)
         );
 
         const message = settings.messages.search(firstName);
@@ -140,7 +142,7 @@ const iterSearchPage = async () => {
     let tryCount = 1;
     let nextButton = null;
     while (nextButton === null && tryCount <= 3) {
-        console.log(`Searching for next button. Try ${tryCount}/4`);
+        console.log(`🔍 Searching for next button. Try ${tryCount}/4`);
         nextButton = await querySelector(document, querySelectors.jobPage.nextPage);
         tryCount++;
         await delay(100);
@@ -150,7 +152,6 @@ const iterSearchPage = async () => {
         throw Error("Next button is missing, error out to prevent infinite loop");
     }
 
-    console.log(nextButton);
     nextButton.click();
     console.log("🏃 Going to next job page!");
 
