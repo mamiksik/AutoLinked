@@ -26,7 +26,7 @@ const settings = {
     limitPerBatch: [30, 36],                               // [from, to] range of  max people invited per spree
     limitPerDay: [250, 300],                               // [from, to] range of max people invited per day
     bathToDownload: 200,                                   // Once this limit is reached connections are exported to file
-    pageLoadCooldown: [4500, 4800],                            // [from, to] range of waiting for page load
+    pageLoadCooldown: [4500, 5000],                        // [from, to] range of waiting for page load
     myNetwork: {
         includePattern: {                                  // RegExps of peoples bio, to be connected to (keys are for clarity and ignored)
 
@@ -39,6 +39,9 @@ const settings = {
         namePattern: /([^,.\- ]+) [^,.\- ]+(,.+)? 2nd degree connection 2nd/i,
         employerPattern: /machine[a-z ]*learning .* at (\w+)/i
     },
+    messages: {
+        search: (firstName) => `Hi, ${firstName}`,
+    }
 };
 
 

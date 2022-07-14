@@ -27,14 +27,8 @@ function downloadString(text, fileType, fileName) {
     }, 1500);
 }
 
-function getRandomInt(minMax, max = null) {
-    let min = 0;
-    if (max === null) {
-        min = Math.ceil(minMax[0]);
-        max = minMax[1];
-    } else {
-        min = Math.ceil(minMax);
-    }
+const getRandomInt = (min, max) => {
+    min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }

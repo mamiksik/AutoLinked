@@ -20,7 +20,7 @@ const querySelectors = {
     },
     jobPage: {
         profileCard: ".reusable-search__result-container",
-        username: ".entity-result__title-text > a > span > span",
+        firstName: ".entity-result__title-text > a > span > span",
         connectButton: 'button[aria-label$="to connect"]', // Button with arial label that ends with 'to connect'
         nextPage: 'button[aria-label="Next"]'
     },
@@ -58,7 +58,13 @@ const invitationCron = async () => {
     let batchConnectionCount = 0;
     const batchLimit = getRandomInt(settings.limitPerBatch);
     while (batchConnectionCount <= batchLimit) {
-        batchConnectionCount += await iterSearchPage();
+        try {
+            batchConnectionCount += await iterSearchPage();
+        } catch (e) {
+            console.log(e);
+            console.log("Eroring out");
+            break;
+        }
     }
 
     GM_setValue('conn_day', connectionToday + batchConnectionCount);
@@ -68,7 +74,7 @@ const invitationCron = async () => {
         return;
     }
 
-    const delay = getRandomInt(settings.batchDelay);
+    const delay = getRandomInt(...settings.batchDelay);
     console.log('🕑 Next batch will run in ', delay, 'ms');
     setTimeout(() => invitationCron(), delay);
 }
@@ -84,7 +90,7 @@ const initNewDay = () => {
     console.log('🌞 Initializing new day (last_day=', Number(GM_getValue('day', 0)), ', current_day=', Number(getTodayDate()), ')');
 
     GM_setValue('conn_day', 0);
-    GM_setValue('conn_day_max', getRandomInt(settings.limitPerDay));
+    GM_setValue('conn_day_max', getRandomInt(...settings.limitPerDay));
     GM_setValue('invitation_logs', []);
     GM_setValue('day', Number(getTodayDate()));
 
@@ -114,15 +120,19 @@ const iterSearchPage = async () => {
     const profiles = document.querySelectorAll(querySelectors.jobPage.profileCard);
 
     for (const profile of profiles) {
-        const name = profile.textContent.match(settings.jobPage.namePattern);
-        const message = "";
-
         // Open "send invitation" dialog
         const connectButton = profile.querySelector(querySelectors.jobPage.connectButton);
         if (connectButton === null) continue;
         connectButton.click();
 
-        const result = await connectToUser(name, message);
+        const firstName = (profile
+            .querySelector(querySelectors.jobPage.firstName)
+            .textContent
+            .match(querySelectors.jobPage.profileCard)
+        );
+
+        const message = settings.messages.search(firstName);
+        const result = await connectToUser(firstName, message);
         if (result !== null) logConnection(result);
         connectionCount++;
     }
@@ -137,7 +147,6 @@ const iterSearchPage = async () => {
     }
 
     if (nextButton === null) {
-        console.log(nextButton);
         throw Error("Next button is missing, error out to prevent infinite loop");
     }
 
@@ -167,7 +176,7 @@ const connectToUser = async (name, message) => {
     const sendInviteButton = await querySelector(document, 'button[aria-label="Dismiss"]');
     if (sendInviteButton === null) return;
 
-    await delay(getRandomInt(settings.delayBetweenConnections));
+    await delay(getRandomInt(...settings.delayBetweenConnections));
     sendInviteButton.click();
 
     console.log('🔄 ', name, " was invited")
