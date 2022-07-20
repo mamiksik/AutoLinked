@@ -154,5 +154,5 @@ const matchPatterns = (textContent, includePatterns, excludePatters) => {
     const includeReq = new RegExp(includePatterns, "i");
     const excludeReq = new RegExp(excludePatters, "i");
 
-    return textContent.match(includeReq) !== null && textContent.match(excludeReq) === null;
+    return !!textContent.match(includeReq) && !textContent.match(excludeReq);
 }

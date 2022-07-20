@@ -48,6 +48,11 @@ const cancelRunningJobs = async () => {
  * Day cycle performs periodically connection sprees.
  */
 const invitationCron = async () => {
+    if (cronTimeout !== null) {
+        console.log('⛔ Cron already running');
+        return;
+    }
+
     const connectionToday = GM_getValue('conn_day', 0);
     console.log('⏰ Running invitation cron');
     console.log('📈 Invited today: ', connectionToday);
@@ -73,6 +78,7 @@ const invitationCron = async () => {
     if (GM_getValue('conn_day', 0) >= GM_getValue('conn_day_max', 9999)) {
         console.log('🎉 We are done for today! ');
         saveCurrentDay();
+        cronTimeout = null;
         return;
     }
 
