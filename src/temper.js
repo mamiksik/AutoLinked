@@ -7,9 +7,9 @@
 // @include          https://www.linkedin.com/*
 // @version          2.2
 // @match            https://www.linkedin.com/*
-// @require          https://raw.githubusercontent.com/mamiksik/AutoLinked/master/src/main.js
-// @require          https://raw.githubusercontent.com/mamiksik/AutoLinked/master/src/utilities.js
-// @require          https://raw.githubusercontent.com/mamiksik/AutoLinked/master/src/logic.js
+// @require          https://cdn.jsdelivr.net/gh/mamiksik/AutoLinked/src/main.js
+// @require          https://cdn.jsdelivr.net/gh/mamiksik/AutoLinked/src/utilities.js
+// @require          https://cdn.jsdelivr.net/gh/mamiksik/AutoLinked/src/logic.js
 
 // @noframes
 // @grant GM_setValue
