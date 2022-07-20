@@ -147,11 +147,11 @@ const querySelector = async (element, query) => {
 
 
 const matchPatterns = (textContent, includePatterns, excludePatters) => {
-    includePatterns =  Object.values(includePatterns).reduce((acc, val) => acc + "|" + val, "")
-    excludePatters =  Object.values(excludePatters).reduce((acc, val) => acc + "|" + val, "")
+    includePatterns = Object.values(includePatterns).reduce((acc, val) => (acc.length > 0 ? acc + "|" : acc) + val, "");
+    excludePatters = Object.values(excludePatters).reduce((acc, val) => (acc.length > 0 ? acc + "|" : acc) + "|" + val, "");
 
-    const includeReq = new RegExp(includePatterns.slice(0, -1), "i");
-    const excludeReq = new RegExp(excludePatters.slice(0, -1), "i");
+    const includeReq = new RegExp(includePatterns, "i");
+    const excludeReq = new RegExp(excludePatters, "i");
 
-    return textContent.match(includeReq) !== null && textContent.match(excludeReq) === null
+    return textContent.match(includeReq) !== null && textContent.match(excludeReq) === null;
 }

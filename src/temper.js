@@ -33,7 +33,7 @@ const settings = {
     pageLoadCooldown: [4500, 5000],                        // [from, to] range of waiting for page load
     searchPage: {
         includePattern: {                                  // RegExps of peoples bio, to be connected to (keys are for clarity and ignored)
-            position: "data engineer|data scientist|",
+            position: "data engineer|data scientist",
             keywords: "ETL|BI|data warehouse|data management|data analytics|big data|data pipelines|data solutions"
         },
         excludePattern: {                                  // RegExps of peoples bio, to be always excluded from connecting to (keys are for clarity and ignored)
