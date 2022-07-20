@@ -37,7 +37,7 @@ const settings = {
             keywords: "ETL|BI|data warehouse|data management|data analytics|big data|data pipelines|data solutions"
         },
         excludePattern: {                                  // RegExps of peoples bio, to be always excluded from connecting to (keys are for clarity and ignored)
-            hr: "headhunt|talent|trainer|sourcing|people| HR |recruit",
+            hr: "headhunt|talent|trainer|sourcing|people|HR|recruit",
         },
         namePattern: /^([\w\-]+)/i,
     },
