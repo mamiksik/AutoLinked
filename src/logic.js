@@ -148,7 +148,7 @@ const iterSearchPage = async () => {
             .match(querySelectors.searchPage.namePattern)
         );
 
-        const message = settings.messages.search(firstName);
+        const message = settings.messages.search(firstName === null ? "" : firstName[0]);
         const result = await connectToUser(firstName, message);
         if (result !== null) logConnection(result);
         connectionCount++;
