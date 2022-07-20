@@ -147,6 +147,7 @@ const querySelector = async (element, query) => {
 
 
 const matchPatterns = (textContent, includePatterns, excludePatters) => {
+    // Only add "|" if the acc is not empty
     includePatterns = Object.values(includePatterns).reduce((acc, val) => (acc.length > 0 ? acc + "|" : acc) + val, "");
     excludePatters = Object.values(excludePatters).reduce((acc, val) => (acc.length > 0 ? acc + "|" : acc) + "|" + val, "");
 

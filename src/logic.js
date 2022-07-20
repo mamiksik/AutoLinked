@@ -123,6 +123,8 @@ const iterSearchPage = async () => {
 
     for (const profile of profiles) {
         const headline = querySelector(profile, querySelectors.searchPage.description);
+        if (headline === null) continue;
+
         const isMatch = matchPatterns(headline.textContent, settings.searchPage.includePattern, settings.searchPage.excludePattern);
         if (!isMatch) continue;
 
