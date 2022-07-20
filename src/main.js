@@ -32,8 +32,9 @@ const main = () => {
 
     createButton('Connect!', 'connectBtn', () => connect());
     createButton('Export!', 'exportBtn', () => exportInvited(), 6);
-    createButton('Reset!', 'resetBtn', () => GM_setValue('texts', []), 12);
-    createButton('Prune!', 'pruneBtn', () => pruneInvitations(), 16);
+    createButton('Cancel jobs!', 'cancelBtn', () => cancelRunningJobs(), 12);
+    // createButton('Reset!', 'resetBtn', () => GM_setValue('texts', []), 12);
+    // createButton('Prune!', 'pruneBtn', () => pruneInvitations(), 16);
     createPopup();
 }
 

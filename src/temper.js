@@ -16,7 +16,11 @@
 // @grant GM_getValue
 // ==/UserScript==
 
-console.log("Base script loaded");
+
+const searchResultMessage = (name) => {
+    if (name.length > 10) name = '';
+    return `Hi ${name}, I am a student at the University of Twente and I am researching what obstacles SW companies faced when dealing with ad-hoc data for data analytics. The ones that make you ask yourself “Why isn’t there a library for it?”. Would you have 5 minutes to fill in a survey for me?`
+};
 
 // Feel free to overwrite `settings` with your own settings by starting from the `default_settings` above
 // Make sure to override whole key:value pairs (the whole values of the "top-level" keys get replaced
@@ -27,22 +31,20 @@ const settings = {
     limitPerDay: [250, 300],                               // [from, to] range of max people invited per day
     bathToDownload: 200,                                   // Once this limit is reached connections are exported to file
     pageLoadCooldown: [4500, 5000],                        // [from, to] range of waiting for page load
-    myNetwork: {
+    searchPage: {
         includePattern: {                                  // RegExps of peoples bio, to be connected to (keys are for clarity and ignored)
-
+            position: "data engineer|data scientist|",
+            keywords: "ETL|BI|data warehouse|data management|data analytics|big data|data pipelines|data solutions"
         },
         excludePattern: {                                  // RegExps of peoples bio, to be always excluded from connecting to (keys are for clarity and ignored)
-
+            hr: "headhunt|talent|trainer|sourcing|people| HR |recruit",
         },
-    },
-    jobPage: {
         namePattern: /^([\w\-]+)/i,
     },
     messages: {
-        search: (firstName) => `Hi, ${firstName}`,
+        search: searchResultMessage,
     }
 };
-
 
 
 // const iterMyNetworkPage = async () => {

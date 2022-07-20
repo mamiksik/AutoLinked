@@ -18,9 +18,10 @@ const querySelectors = {
         profileCard: 'discover-entity-type-card', //??
         connectButton: 'artdeco-button artdeco-button--2 artdeco-button--full artdeco-button--secondary',
     },
-    jobPage: {
+    searchPage: {
         profileCard: ".reusable-search__result-container",
         firstName: ".entity-result__title-text > a > span > span",
+        description: ".entity-result__primary-subtitle",
         connectButton: 'button[aria-label$="to connect"]', // Button with arial label that ends with 'to connect'
         nextPage: 'button[aria-label="Next"]'
     },
@@ -34,12 +35,13 @@ const querySelectors = {
 }
 
 
-const getCustomMessage = (name) => {
-    // const name = contentRaw.match(regexPatterns.jobPage.name);
-    // const company = contentRaw.match(regexPatterns.jobPage.employer);
-
-    return ""
-};
+let cronTimeout = null;
+const cancelRunningJobs = async () => {
+    if (cronTimeout !== null) {
+        console.log('⛔ Cron aborted');
+        clearTimeout(cronTimeout);
+    }
+}
 
 /**
  * Initialize day cycle.
@@ -56,7 +58,7 @@ const invitationCron = async () => {
     }
 
     let batchConnectionCount = 0;
-    const batchLimit = getRandomInt(settings.limitPerBatch);
+    const batchLimit = getRandomInt(...settings.limitPerBatch);
     while (batchConnectionCount <= batchLimit) {
         try {
             batchConnectionCount += await iterSearchPage();
@@ -76,7 +78,7 @@ const invitationCron = async () => {
 
     const delay = getRandomInt(...settings.batchDelay);
     console.log('🕑 Next batch will run in ', delay, 'ms');
-    setTimeout(() => invitationCron(), delay);
+    cronTimeout = setTimeout(() => invitationCron(), delay);
 }
 
 /**
@@ -117,20 +119,24 @@ const iterSearchPage = async () => {
 
     let connectionCount = 0;
     await delay(getRandomInt(10, 20));
-    const profiles = document.querySelectorAll(querySelectors.jobPage.profileCard);
+    const profiles = document.querySelectorAll(querySelectors.searchPage.profileCard);
 
     for (const profile of profiles) {
+        const headline = querySelector(profile, querySelectors.searchPage.description);
+        const isMatch = matchPatterns(headline.textContent, settings.searchPage.includePattern, settings.searchPage.excludePattern);
+        if (!isMatch) continue;
+
         // Open "send invitation" dialog
-        const connectButton = profile.querySelector(querySelectors.jobPage.connectButton);
+        const connectButton = profile.querySelector(querySelectors.searchPage.connectButton);
 
         // Some people might not be invitable (only follow)
         if (connectButton === null) continue;
         connectButton.click();
 
         const firstName = (profile
-            .querySelector(querySelectors.jobPage.firstName)
+            .querySelector(querySelectors.searchPage.firstName)
             .textContent
-            .match(querySelectors.jobPage.namePattern)
+            .match(querySelectors.searchPage.namePattern)
         );
 
         const message = settings.messages.search(firstName);
@@ -143,7 +149,7 @@ const iterSearchPage = async () => {
     let nextButton = null;
     while (nextButton === null && tryCount <= 3) {
         console.log(`🔍 Searching for next button. Try ${tryCount}/4`);
-        nextButton = await querySelector(document, querySelectors.jobPage.nextPage);
+        nextButton = await querySelector(document, querySelectors.searchPage.nextPage);
         tryCount++;
         await delay(100);
     }

@@ -144,3 +144,11 @@ const querySelector = async (element, query) => {
     await delay(getRandomInt(5, 10));
     return element.querySelector(query);
 }
+
+
+const matchPatterns = (textContent, includePatterns, excludePatters) => {
+    const includeReq = new RegExp(includePatterns.slice(0, -1), "i");
+    const excludeReq = new RegExp(excludePatters.slice(0, -1), "i");
+
+    return textContent.match(includeReq) !== null && textContent.match(excludeReq) === null
+}
