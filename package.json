@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "eslint": "^8.19.0",
-    "eslint-config-greasemonkey": "^1.0.1"
+    "eslint-config-greasemonkey": "^1.0.1",
+    "http-server": "^14.1.1"
   }
 }

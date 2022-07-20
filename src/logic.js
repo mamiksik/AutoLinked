@@ -145,7 +145,7 @@ const iterSearchPage = async () => {
         const firstName = (profile
             .querySelector(querySelectors.searchPage.firstName)
             .textContent
-            .match(querySelectors.searchPage.namePattern)
+            .match(settings.searchPage.namePattern)
         );
 
         const message = settings.messages.search(firstName === null ? "" : firstName[0]);
