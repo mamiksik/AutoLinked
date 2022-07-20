@@ -40,6 +40,7 @@ const cancelRunningJobs = async () => {
     if (cronTimeout !== null) {
         console.log('⛔ Cron aborted');
         clearTimeout(cronTimeout);
+        cronTimeout = null;
     }
 }
 
