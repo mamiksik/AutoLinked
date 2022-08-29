@@ -5,11 +5,11 @@
 // @author           Ronald Luc,Martin Miksik
 // @license          None for now
 // @include          https://www.linkedin.com/*
-// @version          2.2
+// @version          2.3
 // @match            https://www.linkedin.com/*
-// @require          http://127.0.0.1:8080/src/main.js
-// @require          http://127.0.0.1:8080/src/utilities.js
-// @require          http://127.0.0.1:8080/src/logic.js
+// @require          file:///home/martin/Documents/Dataport/AutoLinked/src/main.js
+// @require          file:///home/martin/Documents/Dataport/AutoLinked/src/utilities.js
+// @require          file:///home/martin/Documents/Dataport/AutoLinked/src/logic.js
 
 // @noframes
 // @grant GM_setValue
@@ -19,7 +19,7 @@
 
 const searchResultMessage = (name) => {
     if (name.length > 10) name = '';
-    return `Hi ${name}, I am a student at the University of Twente and I am researching what obstacles SW companies faced when dealing with ad-hoc data for data analytics. The ones that make you ask yourself “Why isn’t there a library for it?”. Would you have 5 minutes to fill in a survey for me?`
+    return `Hi ${name}, \nI am a student at the University of Twente and I am researching what obstacles SW companies faced when dealing with ad-hoc data for data analytics. The ones that make you ask yourself “Why isn’t there a library for it?”. Would you have 5 minutes to fill in a survey for me?`
 };
 
 // Feel free to overwrite `settings` with your own settings by starting from the `default_settings` above
@@ -34,7 +34,8 @@ const settings = {
     searchPage: {
         includePattern: {                                  // RegExps of peoples bio, to be connected to (keys are for clarity and ignored)
             position: "data engineer|data scientist",
-            keywords: "ETL|BI|data warehouse|data management|data analytics|big data|data pipelines|data solutions"
+            keywords: "ETL|BI|data warehouse|data management|data analytics|big data|data pipelines|data solutions",
+            other: "lab department"
         },
         excludePattern: {                                  // RegExps of peoples bio, to be always excluded from connecting to (keys are for clarity and ignored)
             hr: "headhunt|talent|trainer|sourcing|people|HR|recruit",

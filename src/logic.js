@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         AutoLinked v2
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.3
 // @description  try to take over the world!
 // @author       You
 // @match        https://*/*
-// @require      https://raw.githubusercontent.com/mamiksik/AutoLinked/master/src/main.js
-// @require      https://raw.githubusercontent.com/mamiksik/AutoLinked/master/src/utilities.js
+// @require      file:///home/martin/Documents/Dataport/AutoLinked/src/main.js
+// @require      file:///home/martin/Documents/Dataport/AutoLinked/src/utilities.js
 
 // @noframes
 // @grant GM_setValue
@@ -171,7 +171,7 @@ const iterSearchPage = async () => {
     console.log("🏃 Going to next job page!");
 
     // Await the page load
-    await delay(settings.pageLoadCooldown);
+    await delay(...settings.pageLoadCooldown);
     console.log("🧍 Arrived at next page:)");
     return connectionCount;
 }
